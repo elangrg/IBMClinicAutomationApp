@@ -1,0 +1,1017 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClinicDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="advice">
+          <Key>
+            <PropertyRef Name="adviceID" />
+          </Key>
+          <Property Name="adviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppointmentID" Type="int" />
+          <Property Name="advice" Type="text" />
+        </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" />
+          <Property Name="PhysicianID" Type="int" />
+          <Property Name="AppointmentDate" Type="date" />
+          <Property Name="Criticality" Type="varchar" MaxLength="50" />
+          <Property Name="Reason" Type="varchar" MaxLength="255" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="chemists">
+          <Key>
+            <PropertyRef Name="chemistID" />
+          </Key>
+          <Property Name="chemistID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="contact" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="email" MaxLength="50" Type="varchar" />
+        </EntityType>
+        <EntityType Name="drugRequest">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="requestedBy" Type="int" />
+          <Property Name="requestedFor" Type="int" />
+          <Property Name="drugID" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="requestDate" Type="date" />
+          <Property Name="requestStatus" Type="varchar" MaxLength="50" />
+          <Property Name="supplierID" Type="int" />
+          <Property Name="Note" Type="text" />
+        </EntityType>
+        <EntityType Name="drugs">
+          <Key>
+            <PropertyRef Name="drugID" />
+          </Key>
+          <Property Name="drugID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="Stock" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="expiry" Type="date" />
+        </EntityType>
+        <EntityType Name="patientHistory">
+          <Key>
+            <PropertyRef Name="historyID" />
+          </Key>
+          <Property Name="historyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientID" Type="int" />
+          <Property Name="artifacts" Type="text" />
+          <Property Name="notes" Type="text" />
+        </EntityType>
+        <EntityType Name="patientReports">
+          <Key>
+            <PropertyRef Name="reportID" />
+          </Key>
+          <Property Name="reportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientID" Type="int" Nullable="false" />
+          <Property Name="reportType" Type="varchar" MaxLength="50" />
+          <Property Name="reportDate" Type="date" />
+          <Property Name="reportDetails" Type="text" />
+        </EntityType>
+        <EntityType Name="patients">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="account" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="physicians">
+          <Key>
+            <PropertyRef Name="physicianID" />
+          </Key>
+          <Property Name="physicianID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Specialisation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" />
+          <Property Name="regNO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prescription">
+          <Key>
+            <PropertyRef Name="prescriptionID" />
+          </Key>
+          <Property Name="prescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adviceID" Type="int" />
+          <Property Name="drugID" Type="int" />
+          <Property Name="dosage" Type="varchar" MaxLength="255" />
+          <Property Name="note" Type="text" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDrugLine">
+          <Key>
+            <PropertyRef Name="PODrugProdLineID" />
+          </Key>
+          <Property Name="PODrugProdLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="POID" Type="int" Nullable="false" />
+          <Property Name="DrugID" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="money" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderHeader">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PODate" Type="date" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="Note" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="supplierID" />
+          </Key>
+          <Property Name="supplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="referenceToID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__advice__Appointm__3D5E1FD2">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="advice" Type="Self.advice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="AppointmentID" />
+            </Principal>
+            <Dependent Role="advice">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__398D8EEE">
+          <End Role="patients" Type="Self.patients" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Physi__3A81B327">
+          <End Role="physicians" Type="Self.physicians" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="physicians">
+              <PropertyRef Name="physicianID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PhysicianID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__drugI__46E78A0C">
+          <End Role="drugs" Type="Self.drugs" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="drugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__reque__44FF419A">
+          <End Role="physicians" Type="Self.physicians" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="physicians">
+              <PropertyRef Name="physicianID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="requestedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__reque__45F365D3">
+          <End Role="patients" Type="Self.patients" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="requestedFor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__suppl__47DBAE45">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="supplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patientHi__patie__4D94879B">
+          <End Role="patients" Type="Self.patients" Multiplicity="0..1" />
+          <End Role="patientHistory" Type="Self.patientHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="patientHistory">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patientRe__patie__4AB81AF0">
+          <End Role="patients" Type="Self.patients" Multiplicity="1" />
+          <End Role="patientReports" Type="Self.patientReports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="patientReports">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prescript__advic__403A8C7D">
+          <End Role="advice" Type="Self.advice" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="advice">
+              <PropertyRef Name="adviceID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="adviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prescript__drugI__412EB0B6">
+          <End Role="drugs" Type="Self.drugs" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="drugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDrugLine_drugs">
+          <End Role="drugs" Type="Self.drugs" Multiplicity="1" />
+          <End Role="PurchaseOrderDrugLine" Type="Self.PurchaseOrderDrugLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDrugLine">
+              <PropertyRef Name="DrugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDrugLine_PurchaseOrderHeader">
+          <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="1" />
+          <End Role="PurchaseOrderDrugLine" Type="Self.PurchaseOrderDrugLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderHeader">
+              <PropertyRef Name="POID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDrugLine">
+              <PropertyRef Name="POID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderHeader_suppliers">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+          <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeader">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicDbModelStoreContainer">
+          <EntitySet Name="advice" EntityType="Self.advice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chemists" EntityType="Self.chemists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="drugRequest" EntityType="Self.drugRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="drugs" EntityType="Self.drugs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patientHistory" EntityType="Self.patientHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patientReports" EntityType="Self.patientReports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patients" EntityType="Self.patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="physicians" EntityType="Self.physicians" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prescription" EntityType="Self.prescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderDrugLine" EntityType="Self.PurchaseOrderDrugLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseOrderHeader" EntityType="Self.PurchaseOrderHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__advice__Appointm__3D5E1FD2" Association="Self.FK__advice__Appointm__3D5E1FD2">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="advice" EntitySet="advice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__398D8EEE" Association="Self.FK__Appointme__Patie__398D8EEE">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Physi__3A81B327" Association="Self.FK__Appointme__Physi__3A81B327">
+            <End Role="physicians" EntitySet="physicians" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__drugI__46E78A0C" Association="Self.FK__drugReque__drugI__46E78A0C">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="drugRequest" EntitySet="drugRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__reque__44FF419A" Association="Self.FK__drugReque__reque__44FF419A">
+            <End Role="physicians" EntitySet="physicians" />
+            <End Role="drugRequest" EntitySet="drugRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__reque__45F365D3" Association="Self.FK__drugReque__reque__45F365D3">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="drugRequest" EntitySet="drugRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__suppl__47DBAE45" Association="Self.FK__drugReque__suppl__47DBAE45">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="drugRequest" EntitySet="drugRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patientHi__patie__4D94879B" Association="Self.FK__patientHi__patie__4D94879B">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="patientHistory" EntitySet="patientHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patientRe__patie__4AB81AF0" Association="Self.FK__patientRe__patie__4AB81AF0">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="patientReports" EntitySet="patientReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prescript__advic__403A8C7D" Association="Self.FK__prescript__advic__403A8C7D">
+            <End Role="advice" EntitySet="advice" />
+            <End Role="prescription" EntitySet="prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prescript__drugI__412EB0B6" Association="Self.FK__prescript__drugI__412EB0B6">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="prescription" EntitySet="prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDrugLine_drugs" Association="Self.FK_PurchaseOrderDrugLine_drugs">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="PurchaseOrderDrugLine" EntitySet="PurchaseOrderDrugLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDrugLine_PurchaseOrderHeader" Association="Self.FK_PurchaseOrderDrugLine_PurchaseOrderHeader">
+            <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeader" />
+            <End Role="PurchaseOrderDrugLine" EntitySet="PurchaseOrderDrugLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderHeader_suppliers" Association="Self.FK_PurchaseOrderHeader_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeader" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClinicDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="advice">
+          <Key>
+            <PropertyRef Name="adviceID" />
+          </Key>
+          <Property Name="adviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentID" Type="Int32" />
+          <Property Name="advice1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK__advice__Appointm__3D5E1FD2" FromRole="advice" ToRole="Appointment" />
+          <NavigationProperty Name="prescriptions" Relationship="Self.FK__prescript__advic__403A8C7D" FromRole="advice" ToRole="prescription" />
+        </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" />
+          <Property Name="PhysicianID" Type="Int32" />
+          <Property Name="AppointmentDate" Type="DateTime" Precision="0" />
+          <Property Name="Criticality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="advices" Relationship="Self.FK__advice__Appointm__3D5E1FD2" FromRole="Appointment" ToRole="advice" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__Appointme__Patie__398D8EEE" FromRole="Appointment" ToRole="patients" />
+          <NavigationProperty Name="physician" Relationship="Self.FK__Appointme__Physi__3A81B327" FromRole="Appointment" ToRole="physicians" />
+        </EntityType>
+        <EntityType Name="chemist">
+          <Key>
+            <PropertyRef Name="chemistID" />
+          </Key>
+          <Property Name="chemistID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="contact" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="email" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+        </EntityType>
+        <EntityType Name="drugRequest">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="requestedBy" Type="Int32" />
+          <Property Name="requestedFor" Type="Int32" />
+          <Property Name="drugID" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="requestDate" Type="DateTime" Precision="0" />
+          <Property Name="requestStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="supplierID" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="drug" Relationship="Self.FK__drugReque__drugI__46E78A0C" FromRole="drugRequest" ToRole="drugs" />
+          <NavigationProperty Name="physician" Relationship="Self.FK__drugReque__reque__44FF419A" FromRole="drugRequest" ToRole="physicians" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__drugReque__reque__45F365D3" FromRole="drugRequest" ToRole="patients" />
+          <NavigationProperty Name="supplier" Relationship="Self.FK__drugReque__suppl__47DBAE45" FromRole="drugRequest" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="drug">
+          <Key>
+            <PropertyRef Name="drugID" />
+          </Key>
+          <Property Name="drugID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Stock" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="expiry" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="drugRequests" Relationship="Self.FK__drugReque__drugI__46E78A0C" FromRole="drugs" ToRole="drugRequest" />
+          <NavigationProperty Name="prescriptions" Relationship="Self.FK__prescript__drugI__412EB0B6" FromRole="drugs" ToRole="prescription" />
+          <NavigationProperty Name="PurchaseOrderDrugLines" Relationship="Self.FK_PurchaseOrderDrugLine_drugs" FromRole="drugs" ToRole="PurchaseOrderDrugLine" />
+        </EntityType>
+        <EntityType Name="patientHistory">
+          <Key>
+            <PropertyRef Name="historyID" />
+          </Key>
+          <Property Name="historyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientID" Type="Int32" />
+          <Property Name="artifacts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__patientHi__patie__4D94879B" FromRole="patientHistory" ToRole="patients" />
+        </EntityType>
+        <EntityType Name="patientReport">
+          <Key>
+            <PropertyRef Name="reportID" />
+          </Key>
+          <Property Name="reportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientID" Type="Int32" Nullable="false" />
+          <Property Name="reportType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reportDate" Type="DateTime" Precision="0" />
+          <Property Name="reportDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__patientRe__patie__4AB81AF0" FromRole="patientReports" ToRole="patients" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="patientID" />
+          </Key>
+          <Property Name="patientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Patie__398D8EEE" FromRole="patients" ToRole="Appointment" />
+          <NavigationProperty Name="drugRequests" Relationship="Self.FK__drugReque__reque__45F365D3" FromRole="patients" ToRole="drugRequest" />
+          <NavigationProperty Name="patientHistories" Relationship="Self.FK__patientHi__patie__4D94879B" FromRole="patients" ToRole="patientHistory" />
+          <NavigationProperty Name="patientReports" Relationship="Self.FK__patientRe__patie__4AB81AF0" FromRole="patients" ToRole="patientReports" />
+        </EntityType>
+        <EntityType Name="physician">
+          <Key>
+            <PropertyRef Name="physicianID" />
+          </Key>
+          <Property Name="physicianID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Specialisation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="regNO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Physi__3A81B327" FromRole="physicians" ToRole="Appointment" />
+          <NavigationProperty Name="drugRequests" Relationship="Self.FK__drugReque__reque__44FF419A" FromRole="physicians" ToRole="drugRequest" />
+        </EntityType>
+        <EntityType Name="prescription">
+          <Key>
+            <PropertyRef Name="prescriptionID" />
+          </Key>
+          <Property Name="prescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adviceID" Type="Int32" />
+          <Property Name="drugID" Type="Int32" />
+          <Property Name="dosage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="advice" Relationship="Self.FK__prescript__advic__403A8C7D" FromRole="prescription" ToRole="advice" />
+          <NavigationProperty Name="drug" Relationship="Self.FK__prescript__drugI__412EB0B6" FromRole="prescription" ToRole="drugs" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderDrugLine">
+          <Key>
+            <PropertyRef Name="PODrugProdLineID" />
+          </Key>
+          <Property Name="PODrugProdLineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="POID" Type="Int32" Nullable="false" />
+          <Property Name="DrugID" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="drug" Relationship="Self.FK_PurchaseOrderDrugLine_drugs" FromRole="PurchaseOrderDrugLine" ToRole="drugs" />
+          <NavigationProperty Name="PurchaseOrderHeader" Relationship="Self.FK_PurchaseOrderDrugLine_PurchaseOrderHeader" FromRole="PurchaseOrderDrugLine" ToRole="PurchaseOrderHeader" />
+        </EntityType>
+        <EntityType Name="PurchaseOrderHeader">
+          <Key>
+            <PropertyRef Name="POID" />
+          </Key>
+          <Property Name="POID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PODate" Type="DateTime" Precision="0" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PurchaseOrderDrugLines" Relationship="Self.FK_PurchaseOrderDrugLine_PurchaseOrderHeader" FromRole="PurchaseOrderHeader" ToRole="PurchaseOrderDrugLine" />
+          <NavigationProperty Name="supplier" Relationship="Self.FK_PurchaseOrderHeader_suppliers" FromRole="PurchaseOrderHeader" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierID" />
+          </Key>
+          <Property Name="supplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="drugRequests" Relationship="Self.FK__drugReque__suppl__47DBAE45" FromRole="suppliers" ToRole="drugRequest" />
+          <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK_PurchaseOrderHeader_suppliers" FromRole="suppliers" ToRole="PurchaseOrderHeader" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="referenceToID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__advice__Appointm__3D5E1FD2">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="advice" Type="Self.advice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="AppointmentID" />
+            </Principal>
+            <Dependent Role="advice">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prescript__advic__403A8C7D">
+          <End Role="advice" Type="Self.advice" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="advice">
+              <PropertyRef Name="adviceID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="adviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__398D8EEE">
+          <End Role="patients" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Physi__3A81B327">
+          <End Role="physicians" Type="Self.physician" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="physicians">
+              <PropertyRef Name="physicianID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PhysicianID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__drugI__46E78A0C">
+          <End Role="drugs" Type="Self.drug" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="drugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__reque__44FF419A">
+          <End Role="physicians" Type="Self.physician" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="physicians">
+              <PropertyRef Name="physicianID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="requestedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__reque__45F365D3">
+          <End Role="patients" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="requestedFor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__drugReque__suppl__47DBAE45">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="drugRequest" Type="Self.drugRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierID" />
+            </Principal>
+            <Dependent Role="drugRequest">
+              <PropertyRef Name="supplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__prescript__drugI__412EB0B6">
+          <End Role="drugs" Type="Self.drug" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="drugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDrugLine_drugs">
+          <End Role="drugs" Type="Self.drug" Multiplicity="1" />
+          <End Role="PurchaseOrderDrugLine" Type="Self.PurchaseOrderDrugLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="drugs">
+              <PropertyRef Name="drugID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDrugLine">
+              <PropertyRef Name="DrugID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patientHi__patie__4D94879B">
+          <End Role="patients" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="patientHistory" Type="Self.patientHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="patientHistory">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patientRe__patie__4AB81AF0">
+          <End Role="patients" Type="Self.patient" Multiplicity="1" />
+          <End Role="patientReports" Type="Self.patientReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="patientID" />
+            </Principal>
+            <Dependent Role="patientReports">
+              <PropertyRef Name="patientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderDrugLine_PurchaseOrderHeader">
+          <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="1" />
+          <End Role="PurchaseOrderDrugLine" Type="Self.PurchaseOrderDrugLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrderHeader">
+              <PropertyRef Name="POID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderDrugLine">
+              <PropertyRef Name="POID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseOrderHeader_suppliers">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierID" />
+            </Principal>
+            <Dependent Role="PurchaseOrderHeader">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="advices" EntityType="Self.advice" />
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="chemists" EntityType="Self.chemist" />
+          <EntitySet Name="drugRequests" EntityType="Self.drugRequest" />
+          <EntitySet Name="drugs" EntityType="Self.drug" />
+          <EntitySet Name="patientHistories" EntityType="Self.patientHistory" />
+          <EntitySet Name="patientReports" EntityType="Self.patientReport" />
+          <EntitySet Name="patients" EntityType="Self.patient" />
+          <EntitySet Name="physicians" EntityType="Self.physician" />
+          <EntitySet Name="prescriptions" EntityType="Self.prescription" />
+          <EntitySet Name="PurchaseOrderDrugLines" EntityType="Self.PurchaseOrderDrugLine" />
+          <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK__advice__Appointm__3D5E1FD2" Association="Self.FK__advice__Appointm__3D5E1FD2">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="advice" EntitySet="advices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prescript__advic__403A8C7D" Association="Self.FK__prescript__advic__403A8C7D">
+            <End Role="advice" EntitySet="advices" />
+            <End Role="prescription" EntitySet="prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__398D8EEE" Association="Self.FK__Appointme__Patie__398D8EEE">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Physi__3A81B327" Association="Self.FK__Appointme__Physi__3A81B327">
+            <End Role="physicians" EntitySet="physicians" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__drugI__46E78A0C" Association="Self.FK__drugReque__drugI__46E78A0C">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="drugRequest" EntitySet="drugRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__reque__44FF419A" Association="Self.FK__drugReque__reque__44FF419A">
+            <End Role="physicians" EntitySet="physicians" />
+            <End Role="drugRequest" EntitySet="drugRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__reque__45F365D3" Association="Self.FK__drugReque__reque__45F365D3">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="drugRequest" EntitySet="drugRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__drugReque__suppl__47DBAE45" Association="Self.FK__drugReque__suppl__47DBAE45">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="drugRequest" EntitySet="drugRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__prescript__drugI__412EB0B6" Association="Self.FK__prescript__drugI__412EB0B6">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="prescription" EntitySet="prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDrugLine_drugs" Association="Self.FK_PurchaseOrderDrugLine_drugs">
+            <End Role="drugs" EntitySet="drugs" />
+            <End Role="PurchaseOrderDrugLine" EntitySet="PurchaseOrderDrugLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patientHi__patie__4D94879B" Association="Self.FK__patientHi__patie__4D94879B">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="patientHistory" EntitySet="patientHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patientRe__patie__4AB81AF0" Association="Self.FK__patientRe__patie__4AB81AF0">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="patientReports" EntitySet="patientReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderDrugLine_PurchaseOrderHeader" Association="Self.FK_PurchaseOrderDrugLine_PurchaseOrderHeader">
+            <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+            <End Role="PurchaseOrderDrugLine" EntitySet="PurchaseOrderDrugLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseOrderHeader_suppliers" Association="Self.FK_PurchaseOrderHeader_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClinicDbModelStoreContainer" CdmEntityContainer="ClinicDbEntities">
+          <EntitySetMapping Name="advices">
+            <EntityTypeMapping TypeName="ClinicDbModel.advice">
+              <MappingFragment StoreEntitySet="advice">
+                <ScalarProperty Name="adviceID" ColumnName="adviceID" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="advice1" ColumnName="advice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="ClinicDbModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PhysicianID" ColumnName="PhysicianID" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="Criticality" ColumnName="Criticality" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ScheduleDateTime" ColumnName="ScheduleDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chemists">
+            <EntityTypeMapping TypeName="ClinicDbModel.chemist">
+              <MappingFragment StoreEntitySet="chemists">
+                <ScalarProperty Name="chemistID" ColumnName="chemistID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drugRequests">
+            <EntityTypeMapping TypeName="ClinicDbModel.drugRequest">
+              <MappingFragment StoreEntitySet="drugRequest">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+                <ScalarProperty Name="requestedBy" ColumnName="requestedBy" />
+                <ScalarProperty Name="requestedFor" ColumnName="requestedFor" />
+                <ScalarProperty Name="drugID" ColumnName="drugID" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="requestDate" ColumnName="requestDate" />
+                <ScalarProperty Name="requestStatus" ColumnName="requestStatus" />
+                <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drugs">
+            <EntityTypeMapping TypeName="ClinicDbModel.drug">
+              <MappingFragment StoreEntitySet="drugs">
+                <ScalarProperty Name="drugID" ColumnName="drugID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="expiry" ColumnName="expiry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patientHistories">
+            <EntityTypeMapping TypeName="ClinicDbModel.patientHistory">
+              <MappingFragment StoreEntitySet="patientHistory">
+                <ScalarProperty Name="historyID" ColumnName="historyID" />
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="artifacts" ColumnName="artifacts" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patientReports">
+            <EntityTypeMapping TypeName="ClinicDbModel.patientReport">
+              <MappingFragment StoreEntitySet="patientReports">
+                <ScalarProperty Name="reportID" ColumnName="reportID" />
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="reportType" ColumnName="reportType" />
+                <ScalarProperty Name="reportDate" ColumnName="reportDate" />
+                <ScalarProperty Name="reportDetails" ColumnName="reportDetails" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patients">
+            <EntityTypeMapping TypeName="ClinicDbModel.patient">
+              <MappingFragment StoreEntitySet="patients">
+                <ScalarProperty Name="patientID" ColumnName="patientID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="account" ColumnName="account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="physicians">
+            <EntityTypeMapping TypeName="ClinicDbModel.physician">
+              <MappingFragment StoreEntitySet="physicians">
+                <ScalarProperty Name="physicianID" ColumnName="physicianID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Specialisation" ColumnName="Specialisation" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="regNO" ColumnName="regNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prescriptions">
+            <EntityTypeMapping TypeName="ClinicDbModel.prescription">
+              <MappingFragment StoreEntitySet="prescription">
+                <ScalarProperty Name="prescriptionID" ColumnName="prescriptionID" />
+                <ScalarProperty Name="adviceID" ColumnName="adviceID" />
+                <ScalarProperty Name="drugID" ColumnName="drugID" />
+                <ScalarProperty Name="dosage" ColumnName="dosage" />
+                <ScalarProperty Name="note" ColumnName="note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderDrugLines">
+            <EntityTypeMapping TypeName="ClinicDbModel.PurchaseOrderDrugLine">
+              <MappingFragment StoreEntitySet="PurchaseOrderDrugLine">
+                <ScalarProperty Name="PODrugProdLineID" ColumnName="PODrugProdLineID" />
+                <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="DrugID" ColumnName="DrugID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseOrderHeaders">
+            <EntityTypeMapping TypeName="ClinicDbModel.PurchaseOrderHeader">
+              <MappingFragment StoreEntitySet="PurchaseOrderHeader">
+                <ScalarProperty Name="POID" ColumnName="POID" />
+                <ScalarProperty Name="PODate" ColumnName="PODate" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="ClinicDbModel.supplier">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="ClinicDbModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="referenceToID" ColumnName="referenceToID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
