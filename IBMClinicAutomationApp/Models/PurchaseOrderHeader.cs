@@ -14,7 +14,7 @@ namespace IBMClinicAutomationApp.Models
     
     public partial class PurchaseOrderHeader
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public PurchaseOrderHeader()
         {
             this.PurchaseOrderDrugLines = new HashSet<PurchaseOrderDrugLine>();
@@ -25,7 +25,7 @@ namespace IBMClinicAutomationApp.Models
         public Nullable<int> SupplierID { get; set; }
         public string Note { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        
         public virtual ICollection<PurchaseOrderDrugLine> PurchaseOrderDrugLines { get; set; }
         public virtual supplier supplier { get; set; }
     }
