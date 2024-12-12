@@ -16,7 +16,7 @@ namespace IBMClinicAutomationApp
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Chemist", action = "CreatePO", id = UrlParameter.Optional }
+                defaults: new { controller = "Doc", action = "ViewAppointments", id = UrlParameter.Optional }
             );
         }
     }

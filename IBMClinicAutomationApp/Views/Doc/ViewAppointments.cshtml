@@ -1,0 +1,75 @@
+﻿@model IEnumerable<IBMClinicAutomationApp.Models.Appointment>
+
+@{
+    ViewBag.Title = "ViewAppointments";
+}
+
+<h2>View Appointments</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Criticality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScheduleDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.patient.name)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.AppointmentDate
+        </td>
+        <td>
+            @item.Criticality
+        </td>
+        <td>
+            @item.Reason
+        </td>
+        <td>
+           @item.Note
+        </td>
+        <td>
+            @item.Status
+        </td>
+        <td>
+             @item.ScheduleDateTime.Value.ToString("dd-MMM-yyyy hh:mm:ss t")
+        </td>
+        <td>
+            @item.patient.name
+            </td>
+            
+        <td>
+
+            @if (item.advices.Count == 0)
+            {
+
+                @Html.ActionLink("Set Advice", "CreateAdvice", new { id = item.AppointmentID }, new { @class = "btn btn-primary" })
+            }
+            else
+            { @Html.ActionLink("View Advice", "ViewAdvice", new { id = item.AppointmentID }, new { @class = "btn btn-info" })}
+
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,18 +1,17 @@
-﻿@model IBMClinicAutomationApp.Models.PurchaseOrderHeader
+﻿@model IBMClinicAutomationApp.Models.advice
 
 @{
-    ViewBag.Title = "CreatePO";
+    ViewBag.Title = "CreateAdvice";
 }
 
-<h2>CreatePO</h2>
+<h2>CreateAdvice</h2>
+
+
 
 
 @using (Html.BeginForm())
 {
 
-    <abc>
-
-    </abc>
 
     <div id="datalistDrugs" hidden>
 
@@ -25,30 +24,28 @@
 
 
     <div class="form-horizontal">
-        <h4>PurchaseOrderHeader</h4>
+        <h4>Advice</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.PODate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.advice1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PODate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PODate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.advice1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.advice1, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupplierID, "SupplierID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SupplierID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2" >Patient Name</span>
+           
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+
+                <input type="text" readonly class="form-control" value="@(ViewBag.PatientName as string)" />
+                <input type="hidden" name="AppointmentID" value="@(ViewBag.AppointmentID as string)" />
+                <input type="hidden" name="PatientID" value="@(ViewBag.PatientID as string)" />
+
             </div>
         </div>
 
@@ -61,14 +58,14 @@
                 Sl. No.
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PurchaseOrderDrugLines.First().drug.name)
+                @Html.DisplayNameFor(model => model.prescriptions.First().drug.name)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.PurchaseOrderDrugLines.First().Qty)
+                @Html.DisplayNameFor(model => model.prescriptions.First().dosage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PurchaseOrderDrugLines.First().Rate)
+                @Html.DisplayNameFor(model => model.prescriptions.First().note)
             </th>
 
             <th></th>
@@ -80,14 +77,14 @@
                 1
             </td>
             <td>
-                <select drugCombo="unbound" class="form-control" name="PurchaseOrderDrugLines[0].DrugID">
+                <select drugCombo="unbound" class="form-control" name="prescriptions[0].DrugID">
                 </select>
             </td>
             <td>
-                <input type="text" class="form-control" name="PurchaseOrderDrugLines[0].Qty">
+                <input type="text" class="form-control" name="prescriptions[0].dosage">
             </td>
             <td>
-                <input type="text" class="form-control" name="PurchaseOrderDrugLines[0].Rate">
+                <input type="text" class="form-control" name="prescriptions[0].note">
             </td>
 
             <td class="addnewRowTD">
@@ -141,7 +138,7 @@
                 _SlNo++
 
                 $.ajax({
-                    url: "/Chemist/CreateProductLine/" + _SlNo, // Controller endpoint
+                    url: "/Doc/CreatePrescriptionLine/" + _SlNo, // Controller endpoint
                     type: "GET",
 
                     success: function (data) {
