@@ -6,10 +6,21 @@
         <select drugCombo="unbound" class="form-control" name="prescriptions[@ViewBag.slno].DrugID"></select>
     </td>
     <td>
-        <input type="text" class="form-control" name="prescriptions[@ViewBag.slno].dosage">
+
+
+        <input type="text" class="form-control" name="prescriptions[@ViewBag.slno].dosage" data-val="true" data-val-regex="The field dosage must match the regular expression &#39;[A-Za-z0-9 ]*&#39;." data-val-regex-pattern="[A-Za-z0-9 ]*" data-val-required="The dosage field is required." id="prescriptions[@ViewBag.slno].dosage">
+
+        <span class="field-validation-valid text-danger" data-valmsg-for="prescriptions[@ViewBag.slno].dosage" data-valmsg-replace="true"></span>
+
+
     </td>
     <td>
-        <input type="text" class="form-control" name="prescriptions[@ViewBag.slno].note">
+       
+
+
+        <input type="text" class="form-control" name="prescriptions[@ViewBag.slno].note" data-val="true" data-val-length="The field note must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="The note field is required." id="prescriptions[@ViewBag.slno].note">
+
+        <span class="field-validation-valid text-danger" data-valmsg-for="prescriptions[@ViewBag.slno].note" data-valmsg-replace="true"></span>
     </td>
 
     <td class="addnewRowTD">

@@ -9,7 +9,7 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm( ))
 {
 
 
@@ -35,11 +35,11 @@
             </div>
         </div>
 
-       
+
 
         <div class="form-group">
-            <span class="control-label col-md-2" >Patient Name</span>
-           
+            <span class="control-label col-md-2">Patient Name</span>
+
             <div class="col-md-10">
 
                 <input type="text" readonly class="form-control" value="@(ViewBag.PatientName as string)" />
@@ -51,6 +51,7 @@
 
 
     </div>
+    
 
     <table id="tblDrugLine" class="table">
         <tr>
@@ -81,10 +82,21 @@
                 </select>
             </td>
             <td>
-                <input type="text" class="form-control" name="prescriptions[0].dosage">
+
+
+
+                <input type="text" class="form-control" name="prescriptions[0].dosage" data-val="true" data-val-regex="The field dosage must match the regular expression &#39;[A-Za-z0-9 ]*&#39;." data-val-regex-pattern="[A-Za-z0-9 ]*" data-val-required="The dosage field is required." id="prescriptions[0].dosage">
+
+                <span class="field-validation-valid text-danger" data-valmsg-for="prescriptions[0].dosage" data-valmsg-replace="true"></span>
+
             </td>
             <td>
-                <input type="text" class="form-control" name="prescriptions[0].note">
+                <input type="text" class="form-control" name="prescriptions[0].note" data-val="true" data-val-length="The field note must be a string with a maximum length of 200." data-val-length-max="200" data-val-required="The note field is required." id="prescriptions[0].note">
+
+                <p class="field-validation-valid text-danger" data-valmsg-for="prescriptions[0].note" data-valmsg-replace="true"></p>
+
+
+
             </td>
 
             <td class="addnewRowTD">
@@ -149,6 +161,13 @@
                         BindAddNewButton()
 
 
+                        // re-Bind Validation Logic - including the controls added above ' $("#tblDrugLine").append(data);'
+                        $("form").removeData("validator");
+                        $.validator.unobtrusive.parse(document);
+
+
+                       
+
                     },
                     error: function () {
                         $("#Notify").html("<p>Error loading details.</p>");
@@ -160,6 +179,9 @@
             })
 
             $("select[drugCombo*='unbound']").html($("#datalistDrugs").html()).attr("drugCombo", "bound")
+
+          
+            
         }
 
 

@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace IBMClinicAutomationApp.Controllers
 {
+
+    [HandleError]
     public class ChemistController : Controller
     {
         private ClinicDbEntities db = new ClinicDbEntities();

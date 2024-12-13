@@ -207,6 +207,7 @@
     <Compile Include="Models\user.cs">
       <DependentUpon>CASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ValidationConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -46,20 +46,28 @@ namespace IBMClinicAutomationApp.Controllers
         public ActionResult CreateAdvice(Models.advice adv, int? PatientID,int? AppointmentID)
         {
 
-            Models.ClinicDbEntities _db = new Models.ClinicDbEntities();
+
+            if (ModelState.IsValid) {
 
 
-            adv.Appointment = _db.Appointments.Find(AppointmentID);
-            foreach (var prs in adv.prescriptions)
-            {
-                prs.drug = _db.drugs.Find(prs.drugID);
-              
+                Models.ClinicDbEntities _db = new Models.ClinicDbEntities();
+
+
+                adv.Appointment = _db.Appointments.Find(AppointmentID);
+                foreach (var prs in adv.prescriptions)
+                {
+                    prs.drug = _db.drugs.Find(prs.drugID);
+
+                }
+
+                _db.advices.Add(adv);
+                _db.SaveChanges();
+
+                return RedirectToAction("ViewAppointments");
             }
+            ViewBag.Drugs = _db.drugs.ToList();
+            return View(adv);
 
-            _db.advices.Add(adv);
-            _db.SaveChanges();
-            
-            return RedirectToAction("ViewAppointments");
         }
 
 
