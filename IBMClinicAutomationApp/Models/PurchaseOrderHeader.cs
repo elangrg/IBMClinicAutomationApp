@@ -11,7 +11,8 @@ namespace IBMClinicAutomationApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PurchaseOrderHeader
     {
         
@@ -21,7 +22,12 @@ namespace IBMClinicAutomationApp.Models
         }
     
         public int POID { get; set; }
-        public Nullable<System.DateTime> PODate { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Purchase Order Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Range(typeof(DateTime), minimum: "1/2/1990", maximum: "31/12/2029",
+    ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        public Nullable<System.DateTime> PODate { get; set; } = DateTime.Today;
         public Nullable<int> SupplierID { get; set; }
         public string Note { get; set; }
     

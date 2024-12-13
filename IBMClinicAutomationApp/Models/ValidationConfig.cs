@@ -31,6 +31,8 @@ namespace IBMClinicAutomationApp.Models
 
         [Required ]
         [RegularExpression("[A-Za-z0-9 ]*") ]
+        [Display(Name = "Drug Dosage")]
+        
         public string dosage { get; set; }
         [Required]
         [StringLength (200)]
