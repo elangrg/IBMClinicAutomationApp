@@ -6,11 +6,37 @@ using System.Web.Mvc;
 
 namespace IBMClinicAutomationApp.Controllers
 {
+
+   // [HandleError(ExceptionType =  typeof(FormatException) ,View = "FormatExcView")]
     public class DocController : Controller
     {  Models.ClinicDbEntities _db = new Models.ClinicDbEntities();
         // GET: Doc
+
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+
+
+        ViewResult vr = new ViewResult();
+
+            vr.ViewBag.Exception = filterContext.Exception;
+
+            vr.ViewName = "ExcForDeveloperView";
+
+
+
+           filterContext.Result = vr;
+            
+        }
+
         public ActionResult ViewAppointments()
         {
+
+
+            int i = int.Parse("abc");
+
+
+
             // From Session["CurrentUser"]
           int phyid = 1;
           

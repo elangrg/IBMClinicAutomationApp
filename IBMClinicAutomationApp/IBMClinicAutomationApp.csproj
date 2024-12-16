@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChemistController.cs" />
     <Compile Include="Controllers\DocController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +252,10 @@
     <Content Include="Views\Doc\ViewAppointments.cshtml" />
     <Content Include="Views\Doc\CreateAdvice.cshtml" />
     <Content Include="Views\Doc\CreatePrescriptionLine.cshtml" />
+    <Content Include="Views\Shared\ErrorGeneral.cshtml" />
+    <Content Include="Views\Shared\ErrorHTTPStatus.cshtml" />
+    <Content Include="Views\Shared\FormatExcView.cshtml" />
+    <Content Include="Views\Shared\ExcForDeveloperView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -260,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
